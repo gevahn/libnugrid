@@ -68,6 +68,8 @@ std::vector< std::vector< double >> libnugrid::genGridRect(const std::vector<int
 	return gridVector;
 }
 
+
+//grid printer
 void libnugrid::printGrid(const std::vector<std::vector<double> >& grid) {
         for (int i = 0; i < grid[0].size(); i++) {
                 std::cout << grid[0][i] << '\t';

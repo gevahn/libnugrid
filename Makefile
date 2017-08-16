@@ -9,9 +9,10 @@ main: main.o grid.o
 main.o: main.cpp grid.h
 	$(CXX) $(CXXFLAGS) -c main.cpp
 
-grid.o: grid.h
+grid.o: grid.cpp grid.h
 	$(CXX) $(CXXFLAGS) -c grid.cpp
 	
+.PHONY: clean
 clean:
-	rm *.o main
+	-rm -f *.o main
 
