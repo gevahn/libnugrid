@@ -1,20 +1,21 @@
-#include <grid>
+#include "grid.h"
 #include <limits>
 #include <cmath>
+#include <iostream>
 
 using namespace libnugrid;
 
 std::vector< std::vector< double >> libnugrid::genGrid(const std::vector<int>& atomName, 
-             const std::vector<std::vector<double>>& atomPos, 
-             std::sting gridType, std::vector<double> gridParams) {
+             const std::vector<std::vector<double> >& atomPos, 
+             std::string gridType, std::vector<double> gridParams) {
 
 	if (gridType == "Rect")  return genGridRect(atomName, atomPos, gridParams);
-	
+	throw "Unknown grid type";	
 }
 
 
 std::vector< std::vector< double >> libnugrid::genGridRect(const std::vector<int>& atomName, 
-             const std::vector<std::vector<double>>& atomPos, std::vector<double> gridParams) {
+             const std::vector<std::vector<double> >& atomPos, std::vector<double> gridParams) {
 
 
 	//get Axis Aligned Bounding Box (AABB)
@@ -41,28 +42,38 @@ std::vector< std::vector< double >> libnugrid::genGridRect(const std::vector<int
 	// set grid spacing
 	int gridDimX, gridDimY, gridDimZ;
 	if (gridParams.size() == 1) {
-		gridParam.append(gridParam[0]);	
-		gridParam.append(gridParam[0]);	
+		gridParams.push_back(gridParams[0]);	
+		gridParams.push_back(gridParams[0]);	
 	}
-	gridDimX = std::round((maxX - minX) / gridParam[0]);	
-	gridDimY = std::round((maxY - minY) / gridParam[1]);	
-	gridDimZ = std::round((maxZ - minZ) / gridParam[2]);	
+	gridDimX = std::round((maxX - minX) / gridParams[0]);	
+	gridDimY = std::round((maxY - minY) / gridParams[1]);	
+	gridDimZ = std::round((maxZ - minZ) / gridParams[2]);	
 
 	int gridSize = gridDimX * gridDimY * gridDimZ;
 
 	//generate grid
-	std::vector<std::vector< double >> gridVector(4, std::vector<double> (gridSize, 0));
+	std::vector<std::vector<double> > gridVector(4, std::vector<double> (gridSize, 0));
 
 	for (int i = 0; i < gridDimX; i++) {
 		for (int j = 0; j < gridDimY; j++) {
 			for (int k = 0; k < gridDimZ; k++) {
-				int currentIdx = k + j * gridDimY + i * (gridDimX * gridDimY)
-				gridVector[currentIdx][0] = i * gridParam[0];
-				gridVector[currentIdx][1] = j * gridParam[1];
-				gridVector[currentIdx][2] = k * gridParam[2];
-				gridVector[currentIdx][3] = gridParam[0] * gridParam[1] * gridParam[2];
+				int currentIdx = k + j * gridDimY + i * (gridDimZ * gridDimY);
+				gridVector[0][currentIdx] = i * gridParams[0];
+				gridVector[1][currentIdx] = j * gridParams[1];
+				gridVector[2][currentIdx] = k * gridParams[2];
+				gridVector[3][currentIdx] = gridParams[0] * gridParams[1] * gridParams[2];
 			}	
 		}	
 	}	
 	return gridVector;
+}
+
+void libnugrid::printGrid(const std::vector<std::vector<double> >& grid) {
+        for (int i = 0; i < grid[0].size(); i++) {
+                std::cout << grid[0][i] << '\t';
+                std::cout << grid[1][i] << '\t';
+                std::cout << grid[2][i] << '\t';
+                std::cout << grid[3][i] << std::endl;
+        }
+
 }
