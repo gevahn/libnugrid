@@ -1,3 +1,5 @@
+# Project timeline for libnugrid and libnulaplace
+
 Week ending 	08/25/17
 Code feature:		Rectilinear grid
 Code infrastructure: 	Travis and codecov of auxiliary functions
