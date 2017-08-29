@@ -18,14 +18,9 @@ std::vector< std::vector< double > > genGrid(const std::vector<int>& atomName,
 std::vector< std::vector< double > > genGridRect(const std::vector<int>& atomName,
 					    const std::vector<std::vector<double> >& atomPos, std::vector<double> gridParams);
 
-// Lebedev on a unit sphere
-std::vector< std::vector< double > > genGridLebedev(const std::vector<int>& atomName,
-					    const std::vector<std::vector<double> >& atomPos, std::vector<double> gridParams);
 
 // Utils
 // Print a grid to cout
 void printGrid(const std::vector<std::vector<double> >& grid);
 
-// Get the number of points in a levedev grid of the given precision
-int libnugrid::lebedevGetGridSize(int gridPrecision)
 }
