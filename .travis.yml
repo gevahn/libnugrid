@@ -32,8 +32,15 @@ before_script:
   - python -V
 
 script:
-  - pip install -e .
-  - py.test -v --cov=./
+  - cd libnugrid
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - make install
+  - cd ../../tests
+  - make
+  - ./main 0.1 
 
 notifications:
   email: false

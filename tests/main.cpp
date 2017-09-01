@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <cassert>
 
 enum {X, Y, Z, W};
 
@@ -45,9 +46,11 @@ int main(int argc, char * argv[]) {
 
 	std::cout << std::atof(argv[1]) << std::endl;
 
-	libnugrid::printGrid(grid);
+//	libnugrid::printGrid(grid);
 	double gaussIntgrated = integrate(grid, atomPos);
 	std::cout << gaussIntgrated << std::endl;
 	std::cout << gaussIntgrated - atomPos.size() << std::endl;
+	assert(abs(gaussIntgrated - atomPos.size()) < 0.00001);
+	return 0;
 
 }
