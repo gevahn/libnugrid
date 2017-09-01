@@ -1,4 +1,4 @@
-#include "grid.h"
+#include "nugrid.h"
 #include <algorithm>
 #include <limits>
 #include <cmath>
@@ -82,11 +82,11 @@ std::vector< std::vector< double >> libnugrid::genGridLebedev(const std::vector<
 	//generate grid
 	std::vector<std::vector<double> > gridVector(4, std::vector<double> (gridSize, 0));
 
-	fstream gridFile;
-	gridFile.open("lebedev_grids/lebedev_%3d.txt", std::fstream::in);
 
 	int currentPoint = 0;
 	for (auto& param : gridParams) {
+		std::fstream gridFile;
+		gridFile.open("lebedev_grids/lebedev_%3d.txt", std::fstream::in);
 		int size = lebedevGetGridSize(std::round(param));	
 		for (int i = 0; i < size; i++) {
 			double theta, phi, w;
@@ -97,9 +97,11 @@ std::vector< std::vector< double >> libnugrid::genGridLebedev(const std::vector<
 			gridVector[Y][currentPoint] = sin(theta) * sin(phi);
 			gridVector[Z][currentPoint] = cos(phi);
 			gridVector[W][currentPoint] = 4 * M_PI * w;
+			currentPoint++;
 		}
-
+		gridFile.close();
 	}
+
 
 	
 }
@@ -116,13 +118,13 @@ void libnugrid::printGrid(const std::vector<std::vector<double> >& grid) {
 
 }
 
-int libnugrid::lebedevGetGridSize(int gridPrecision) {
+int libnugrid::lebedevGetGridSize(int reqGridPrecision) {
 	
-	vector<int> lebedevGridSizes = {6, 14, 26, 38, 50, 74, 86, 110, 146, 170, 194, 230, 266, 302, 350, 434, 590, 770, 974, 1202, 1454, 1730, 2030, 2354, 2702, 3074, 3470, 3890, 4334, 4802, 5294, 5810}
+	static const std::vector<int> lebedevGridSizes = {6, 14, 26, 38, 50, 74, 86, 110, 146, 170, 194, 230, 266, 302, 350, 434, 590, 770, 974, 1202, 1454, 1730, 2030, 2354, 2702, 3074, 3470, 3890, 4334, 4802, 5294, 5810};
 
-	vector<int> lebedevGridPrecisions = {3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 35, 41, 47, 53, 59, 65, 71, 77, 83, 89, 95, 101, 107, 113, 119, 125, 131}
+	static const std::vector<int> lebedevGridPrecisions = {3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 35, 41, 47, 53, 59, 65, 71, 77, 83, 89, 95, 101, 107, 113, 119, 125, 131};
 
-	auto gridPrecision = std::find(lebedevGridPrecisions.begin(), lebedevGridPrecisions.end(), gridPrecision);
+	auto gridPrecision = std::find(lebedevGridPrecisions.begin(), lebedevGridPrecisions.end(), reqGridPrecision);
 	if (gridPrecision == lebedevGridPrecisions.end()) {
 		throw "Requested Grid Precision is not present";
 	}

@@ -1,4 +1,4 @@
-#include "libnugrid.h"
+#include "nugrid.h"
 #include <vector>
 #include <iostream>
 #include <cmath>

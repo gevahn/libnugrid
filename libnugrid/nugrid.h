@@ -27,5 +27,5 @@ std::vector< std::vector< double > > genGridLebedev(const std::vector<int>& atom
 void printGrid(const std::vector<std::vector<double> >& grid);
 
 // Get the number of points in a levedev grid of the given precision
-int libnugrid::lebedevGetGridSize(int gridPrecision)
+int lebedevGetGridSize(int gridPrecision);
 }

@@ -33,3 +33,7 @@
 
 # Vim Swap
 *.swp
+
+# Build/bin dir
+build/
+bin/
