@@ -23,7 +23,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - conda create -n libnugrid python=3.5 pytest pytest-cov pyyaml numpy cmake scipy numexpr mkl-include gcc-5-mp -c intel
+  - conda create -n libnugrid python=3.5 pytest pytest-cov pyyaml numpy cmake scipy numexpr mkl-include gcc -c intel
   - source activate libnugrid
   - pip install codecov
   - conda list
