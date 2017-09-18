@@ -1,7 +1,7 @@
 CXX = g++ 
 CXXFLAGS = -g -Wall -std=c++11 -O3
 INCLUDE = -Iinclude
-LIBS = -lnugrid
+LIBS = -L. -lnugrid
 
 all: test
 
