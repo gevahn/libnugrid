@@ -1,0 +1,7 @@
+/home/gevahn/Dropbox/libnugrid/libnugrid/nugrid.cpp: In function ‘std::vector<std::vector<double> > libnugrid::genGrid(const std::vector<int>&, const std::vector<std::vector<double> >&, libnugrid::gridTypes, std::vector<double>)’:
+/home/gevahn/Dropbox/libnugrid/libnugrid/nugrid.cpp:19:54: error: ‘addBecjWeightToGrid’ was not declared in this scope
+   addBecjWeightToGrid(atomName, atomPos, gridToReturn);
+                                                      ^
+make[2]: *** [CMakeFiles/nugrid.dir/nugrid.cpp.o] Error 1
+make[1]: *** [CMakeFiles/nugrid.dir/all] Error 2
+make: *** [all] Error 2

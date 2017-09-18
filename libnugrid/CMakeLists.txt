@@ -14,7 +14,8 @@ set(CMAKE_CXX_FLAGS "-std=c++11")
  
 include_directories("${PROJECT_BINARY_DIR}")
 
-add_library(nugrid nugrid.cpp nugrid.h) 
 
-install (TARGETS nugrid DESTINATION lib)
-install (FILES nugrid.h DESTINATION include)
+add_library(nugrid nugrid.cpp lebedev_grids/lebedevData.cpp) 
+
+install (TARGETS nugrid DESTINATION ${PROJECT_SOURCE_DIR}/tests/lib)
+install (FILES nugrid.h DESTINATION ${PROJECT_SOURCE_DIR}/tests/include)

@@ -33,14 +33,13 @@ before_script:
 
 script:
   - cd libnugrid
-  - mkdir build
-  - cd build
-  - cmake ..
+  - cmake -H. -Bbuild
+  - cd build/
   - make
   - make install
-  - cd ../../tests
+  - cd ../tests
   - make
-  - ./main 0.1 
+  - ./test 302 45
 
 notifications:
   email: false
