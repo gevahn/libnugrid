@@ -39,7 +39,7 @@ script:
   - make install
   - cd ../tests
   - make
-  - ./test 302 45
+  - ./test.exe 302 45
 
 notifications:
   email: false
