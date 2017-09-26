@@ -10,7 +10,7 @@ namespace py = pybind11;
 py::array_t<double> gen_grid(py::array_t<double> atomPos, py::array_t<int> atomName, py::array_t<double> gridParams) {
     py::buffer_info param_info = gridParams.request();
     py::buffer_info pos_info = atomPos.request();
-    py::buffer_info name_info = atomNames.request();
+    py::buffer_info name_info = atomName.request();
     
     if (param_info.ndim != 1)
         throw std::runtime_error("parameters is not a 1D vector)");
@@ -23,12 +23,12 @@ py::array_t<double> gen_grid(py::array_t<double> atomPos, py::array_t<int> atomN
     std::vector<std::vector<double>> passPos(pos_info.shape[0], std::vector<double>(pos_info.shape[1]);
     std::vector<int> passNames(name_info.shape[0]);
 
-    passParams.assign(param_info.data(), param_info.data() + param_info.shape[0]);
-    passNames.assign(name_info.data(), name_info.data() + name_info.shape[0]);
+    passParams.assign(gridParam.data(), gridParam.data() + param_info.shape[0]);
+    passNames.assign(atomName.data(), atomName.data() + name_info.shape[0]);
 
-    const double * pos_data = pos_info.data();
+    const double * pos_data = atomPos.data();
 
-    for (size_t i = 0; i < pos_info.size(); i+=3) {
+    for (size_t i = 0; i < atomPos.size(); i+=3) {
         passPos[i][0] = pos_data[i + 0];
         passPos[i][1] = pos_data[i + 1];
         passPos[i][2] = pos_data[i + 2];
