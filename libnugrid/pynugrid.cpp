@@ -20,10 +20,10 @@ py::array_t<double> gen_grid(py::array_t<double> atomPos, py::array_t<int> atomN
         throw std::runtime_error("atom positions length does not match atom names length");
 
     std::vector<double> passParams(param_info.shape[0]);
-    std::vector<std::vector<double>> passPos(pos_info.shape[0], std::vector<double>(pos_info.shape[1]);
+    std::vector<std::vector<double>> passPos(pos_info.shape[0], std::vector<double>(pos_info.shape[1]));
     std::vector<int> passNames(name_info.shape[0]);
 
-    passParams.assign(gridParam.data(), gridParam.data() + param_info.shape[0]);
+    passParams.assign(gridParams.data(), gridParams.data() + param_info.shape[0]);
     passNames.assign(atomName.data(), atomName.data() + name_info.shape[0]);
 
     const double * pos_data = atomPos.data();
@@ -52,10 +52,10 @@ py::array_t<double> gen_grid(py::array_t<double> atomPos, py::array_t<int> atomN
 
 
 
-PYBIND11_PLUGIN(nugrid) {
+PYBIND11_PLUGIN(pynugrid) {
     py::module m("pynugrid", "The non-uniform grid module");
 
-    m.def("genGrid", &gen_grid, "Generats an atom centered grid");
+    m.def("gen_grid", &gen_grid, "Generats an atom centered grid");
 
     return m.ptr();
 }
